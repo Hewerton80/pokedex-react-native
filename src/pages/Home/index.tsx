@@ -1,7 +1,8 @@
 import { useState } from 'react'
 
-import { Button, Text } from 'react-native'
-import PokemonCard from '../../components/PokemonCard'
+import { Button, StatusBar, Text } from 'react-native'
+import PokemonCard from '../../components/layout/PokemonCard'
+import { colors } from '../../styles/mainStyles'
 
 import * as Styled from './styles'
 
@@ -9,10 +10,8 @@ function Home() {
   const [count, setCount] = useState(0)
   return (
     <Styled.Container>
-      <PokemonCard>
-        <Text>count: {count}</Text>
-        <Button title="click-me" onPress={() => setCount(count + 1)} />
-      </PokemonCard>
+      <StatusBar backgroundColor={colors.backGround} />
+      <PokemonCard />
     </Styled.Container>
   )
 }

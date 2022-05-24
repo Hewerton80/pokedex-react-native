@@ -20,8 +20,8 @@ export const colors = {
   fairy: '#e69eac',
   bug: '#a7b723',
   fire: '#f57f31',
-  eletric: '#59cf30',
-  deagon: '#7037ff',
+  electric: '#F9CF30',
+  dragon: '#7037ff',
 }
 
 export const fontSize = {

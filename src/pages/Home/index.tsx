@@ -1,18 +1,31 @@
-import { useState } from 'react'
-
-import { Button, StatusBar, Text } from 'react-native'
+import { useEffect } from 'react'
+import { ScrollView } from 'react-native'
 import PokemonCard from '../../components/layout/PokemonCard'
-import { colors } from '../../styles/mainStyles'
+import HomeHeader from '../../components/common/HomeHeader'
+import usePokemon from '../../hooks/usePokemon'
 
 import * as Styled from './styles'
 
 function Home() {
-  const [count, setCount] = useState(0)
+  const { pokemons, isLoading, getPokemons } = usePokemon()
+
+  useEffect(() => {
+    getPokemons({})
+  }, [getPokemons])
+
   return (
-    <Styled.Container>
-      <StatusBar backgroundColor={colors.backGround} />
-      <PokemonCard />
-    </Styled.Container>
+    <>
+      <Styled.Container>
+        <HomeHeader />
+        <ScrollView>
+          <Styled.ContainerInner>
+            {pokemons?.docs?.map((pokemon, i) => (
+              <PokemonCard key={i + 'pokemon'} type="dragon" pokemon={pokemon} />
+            ))}
+          </Styled.ContainerInner>
+        </ScrollView>
+      </Styled.Container>
+    </>
   )
 }
 

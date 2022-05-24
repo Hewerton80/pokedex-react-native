@@ -14,7 +14,8 @@ export default function Routers() {
           name={PagesEnum.Home}
           component={Home}
           options={{
-            header: () => <HomeHeader />,
+            // header: () => <HomeHeader />,
+            headerShown: false,
           }}
         />
       </Stack.Navigator>

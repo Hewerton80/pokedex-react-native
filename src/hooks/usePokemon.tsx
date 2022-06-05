@@ -23,7 +23,6 @@ function usePokemon() {
     setIsLoading(true)
     try {
       const response = await baseApi.get('/pokemon', { params: ookemonQueryParams })
-      // console.log('pokemons: ', response.data)
       setPokemons(response.data)
     } catch (err) {
       console.log(err)

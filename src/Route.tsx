@@ -1,22 +1,25 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import HomeHeader from './components/common/HomeHeader'
-import Home from './pages/Home'
-import { PagesEnum } from './utils/pagesEnum'
+import HomePage from './pages/HomePage'
+import PokemonInfoPage from './pages/PokemonInfoPage'
+import { RootStackParamList } from './types/Navigation'
 
-const Stack = createNativeStackNavigator()
+const Stack = createNativeStackNavigator<RootStackParamList>()
 
 export default function Routers() {
   return (
     <NavigationContainer>
+      {/* @ts-ignore:next-line */}
       <Stack.Navigator>
         <Stack.Screen
-          name={PagesEnum.Home}
-          component={Home}
-          options={{
-            // header: () => <HomeHeader />,
-            headerShown: false,
-          }}
+          name="HomePage"
+          component={HomePage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="PokemonInfoPage"
+          component={PokemonInfoPage}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>

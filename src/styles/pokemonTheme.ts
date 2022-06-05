@@ -1,5 +1,5 @@
-import { colors } from '../../../styles/mainStyles'
-import { PokemonTypeNameEnum } from '../../../types/PokemonType'
+import { colors } from './mainStyles'
+import { PokemonTypeNameEnum } from '../types/PokemonType'
 
 type IPokemonTheme = {
   [Property in keyof typeof PokemonTypeNameEnum]: {

@@ -1,5 +1,11 @@
 import styled from 'styled-components/native'
-import { colors, fontSize, lineHeight, spacings } from '../../../styles/mainStyles'
+import {
+  colors,
+  fontFamylies,
+  fontSize,
+  lineHeight,
+  spacings,
+} from '../../../styles/mainStyles'
 import { StatusBar } from 'react-native'
 
 export const Container = styled.View`
@@ -13,7 +19,7 @@ export const Container = styled.View`
 
 export const HemeHeaderTitle = styled.Text`
   font-size: ${fontSize.xll}px;
-  font-family: 'Poppins_700Bold';
+  font-family: ${fontFamylies.Poppins_700Bold};
   line-height: ${lineHeight.xl}px;
   margin-left: ${spacings[4]}px;
 `

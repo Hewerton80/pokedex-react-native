@@ -75,3 +75,8 @@ export const spacings = {
   80: 320,
   96: 384,
 }
+
+export const fontFamylies = {
+  Poppins_400Regular: 'Poppins_400Regular',
+  Poppins_700Bold: 'Poppins_700Bold',
+}

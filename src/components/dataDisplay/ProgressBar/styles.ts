@@ -38,9 +38,6 @@ export const WrapperBar = styled.View`
   margin-left: ${spacings[4]}px;
   border-radius: ${spacings[1]}px;
   overflow: hidden;
-  background-color: red;
-
-  /* opacity: 0.2; */
 `
 
 export const Bar = styled.View`

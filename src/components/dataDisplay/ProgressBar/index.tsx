@@ -1,5 +1,6 @@
 import { rgba } from 'polished'
-import { ViewProps } from 'react-native'
+import { useEffect, useRef } from 'react'
+import { Animated, ViewProps } from 'react-native'
 import { isObject } from '../../../utils/isType'
 
 import * as Styled from './styles'
@@ -12,7 +13,17 @@ interface ProgressBarProps extends ViewProps {
 }
 
 function ProgressBar({ label, value, max, themeColor, ...restProps }: ProgressBarProps) {
-  const width = `${(value / max) * 100}%`
+  const width = (value / max) * 100
+  // const width = `${(value / max) * 100}%`
+  const animation = useRef(new Animated.Value(0)).current
+
+  useEffect(() => {
+    Animated.timing(animation, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start()
+  }, [width])
 
   return (
     <Styled.Container {...(isObject(restProps) ? (restProps as object) : {})}>

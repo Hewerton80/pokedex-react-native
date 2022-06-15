@@ -1,3 +1,4 @@
+import { Animated } from 'react-native'
 import styled from 'styled-components/native'
 import {
   colors,
@@ -10,7 +11,7 @@ import {
 export const Container = styled.View`
   flex-direction: row;
   align-items: center;
-  width: 100%;
+  max-width: 100%;
   height: ${spacings[4]}px;
   overflow: hidden;
 `
@@ -40,7 +41,7 @@ export const WrapperBar = styled.View`
   overflow: hidden;
 `
 
-export const Bar = styled.View`
+export const Bar = styled(Animated.View)`
   position: absolute;
   flex-direction: row;
   height: 100%;

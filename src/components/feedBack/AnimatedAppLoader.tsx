@@ -1,14 +1,12 @@
 import * as Font from 'expo-font'
 import { Poppins_400Regular, Poppins_700Bold } from '@expo-google-fonts/poppins'
 import * as SplashScreen from 'expo-splash-screen'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import { View, Animated, StyleSheet } from 'react-native'
 import { useAssets } from 'expo-asset'
 import Constants from 'expo-constants'
 import SplashImagePath from '../../../assets/splash.png'
 import { fontFamylies } from '../../styles/mainStyles'
-
-console.log('constants: ', Constants?.manifest?.splash?.image)
 
 // Instruct SplashScreen not to hide yet, we want to do this manually
 SplashScreen.preventAutoHideAsync().catch(() => {
@@ -16,7 +14,8 @@ SplashScreen.preventAutoHideAsync().catch(() => {
 })
 
 interface AnimatedAppLoaderProps {
-  children?: any
+  // children?: any
+  children?: ReactNode
 }
 
 interface AnimatedSplashScreenProps extends AnimatedAppLoaderProps {
@@ -92,35 +91,37 @@ function AnimatedSplashScreen({ children, image }: AnimatedSplashScreenProps) {
 
   return (
     <View style={{ flex: 1 }}>
-      {isAppReady && children}
-      {!isSplashAnimationComplete && (
-        <Animated.View
-          pointerEvents="none"
-          style={[
-            StyleSheet.absoluteFill,
-            {
-              backgroundColor: Constants?.manifest?.splash?.backgroundColor,
-              opacity: animation,
-            },
-          ]}
-        >
-          <Animated.Image
-            style={{
-              width: '100%',
-              height: '100%',
-              resizeMode: Constants?.manifest?.splash?.resizeMode || 'contain',
-              transform: [
-                {
-                  scale: animation,
-                },
-              ],
-            }}
-            source={image}
-            onLoadEnd={onImageLoaded}
-            fadeDuration={0}
-          />
-        </Animated.View>
-      )}
+      <>
+        {isAppReady && children}
+        {!isSplashAnimationComplete && (
+          <Animated.View
+            pointerEvents="none"
+            style={[
+              StyleSheet.absoluteFill,
+              {
+                backgroundColor: Constants?.manifest?.splash?.backgroundColor,
+                opacity: animation,
+              },
+            ]}
+          >
+            <Animated.Image
+              style={{
+                width: '100%',
+                height: '100%',
+                resizeMode: Constants?.manifest?.splash?.resizeMode || 'contain',
+                transform: [
+                  {
+                    scale: animation,
+                  },
+                ],
+              }}
+              source={image}
+              onLoadEnd={onImageLoaded}
+              fadeDuration={0}
+            />
+          </Animated.View>
+        )}
+      </>
     </View>
   )
 }

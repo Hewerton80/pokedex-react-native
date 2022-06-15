@@ -9,7 +9,7 @@ import {
 import { Dimensions } from 'react-native'
 const gap = spacings[2]
 const numCols = 2
-const paddingHorizontalWindow = spacings[6]
+const paddingHorizontalWindow = spacings[4]
 
 const widthWindow = Dimensions.get('window').width
 const widthWindowSubtractedFromGapAndHorizontalPadding =

@@ -1,6 +1,6 @@
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { useCallback, useEffect, useMemo } from 'react'
-import { Image, View } from 'react-native'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
+import { Animated, Image, View, StatusBar as NativeStatusBar, Easing } from 'react-native'
 import usePokemon from '../../hooks/usePokemon'
 import { pokemonTheme } from '../../styles/pokemonTheme'
 import * as Styled from './styles'
@@ -18,10 +18,31 @@ import ProgressBar from '../../components/dataDisplay/ProgressBar'
 
 type PokemonInfoPageProps = NativeStackScreenProps<RootStackParamList, 'PokemonInfoPage'>
 
+const StatusBarHeight = NativeStatusBar.currentHeight
+  ? Number(NativeStatusBar.currentHeight)
+  : 0
 function PokemonInfoPage() {
   const { getPokemonById, pokemon, isLoading } = usePokemon()
   const route = useRoute<PokemonInfoPageProps['route']>()
   const navigation = useNavigation<PokemonInfoPageProps['navigation']>()
+
+  const rotateAnimation = useRef(new Animated.Value(0)).current
+
+  const startRotateAnimation = useCallback(() => {
+    rotateAnimation.setValue(0)
+    Animated.timing(rotateAnimation, {
+      toValue: 1,
+      duration: 4000,
+      easing: Easing.linear,
+      useNativeDriver: true,
+    }).start(() => startRotateAnimation())
+  }, [])
+
+  useEffect(() => {
+    if (!isLoading && pokemon?.id) {
+      startRotateAnimation()
+    }
+  }, [isLoading, pokemon, startRotateAnimation])
 
   const pokemonId = useMemo(() => {
     return route.params.pokemonId
@@ -59,7 +80,18 @@ function PokemonInfoPage() {
             </Styled.HeaderTitle>
             <Styled.HeaderId>#{pokemonIdText}</Styled.HeaderId>
           </Styled.Header>
-          <Styled.PokebollIconWrapper>
+          <Styled.PokebollIconWrapper
+            style={{
+              transform: [
+                {
+                  rotate: rotateAnimation.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: ['0deg', '360deg'],
+                  }),
+                },
+              ],
+            }}
+          >
             <PokebollIcon color={colors.white} style={{ zIndex: 1 }} />
           </Styled.PokebollIconWrapper>
 
@@ -89,7 +121,7 @@ function PokemonInfoPage() {
                 <Styled.PokemonAboutInfoColumnInner>
                   <Image source={WeightIcon} />
                   <Styled.PokemonAboutInfoColumnValueText>
-                    {'6,9'} kg
+                    {pokemon?.weight! / 10} kg
                   </Styled.PokemonAboutInfoColumnValueText>
                 </Styled.PokemonAboutInfoColumnInner>
                 <Styled.PokemonAboutInfoColumnText>
@@ -101,7 +133,7 @@ function PokemonInfoPage() {
                 <Styled.PokemonAboutInfoColumnInner>
                   <Image source={HeighttIcon} />
                   <Styled.PokemonAboutInfoColumnValueText>
-                    {'0,7'} m
+                    {pokemon?.height! / 10} m{/* {'0,7'} m */}
                   </Styled.PokemonAboutInfoColumnValueText>
                 </Styled.PokemonAboutInfoColumnInner>
                 <Styled.PokemonAboutInfoColumnText>
@@ -133,7 +165,7 @@ function PokemonInfoPage() {
               style={{
                 maxWidth: 352,
                 width: '100%',
-                // backgroundColor: 'red',
+                paddingHorizontal: spacings[2],
               }}
             >
               {pokemon?.stats?.map((stat, i) => (

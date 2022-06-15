@@ -1,3 +1,8 @@
+import { RFValue } from 'react-native-responsive-fontsize'
+import { Dimensions } from 'react-native'
+
+const heightWindow = Dimensions.get('window').height
+
 export const colors = {
   darkGray: '#212121',
   medium: '#666666',
@@ -24,19 +29,26 @@ export const colors = {
   dragon: '#7037ff',
 }
 
+// export const fontSize = {
+//   xs: 8,
+//   sm: 10,
+//   lg: 12,
+//   xl: 14,
+//   xll: 24,
+// }
 export const fontSize = {
-  xs: 8,
-  sm: 10,
-  lg: 12,
-  xl: 14,
-  xll: 24,
+  xs: RFValue(8, heightWindow),
+  sm: RFValue(10, heightWindow),
+  lg: RFValue(12, heightWindow),
+  xl: RFValue(14, heightWindow),
+  xll: RFValue(24, heightWindow),
 }
 
 export const lineHeight = {
-  xs: 12,
-  sm: 16,
-  lg: 18,
-  xl: 32,
+  xs: RFValue(12, heightWindow),
+  sm: RFValue(16, heightWindow),
+  lg: RFValue(18, heightWindow),
+  xl: RFValue(32, heightWindow),
 }
 
 export const spacings = {

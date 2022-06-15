@@ -68,24 +68,36 @@ function HomePage() {
     console.log('currentPage: ', currentPage)
   }, [currentPage])
 
+  const FlatListPokemonElement = useMemo(() => {
+    if (!pokemonsCache.length) return <></>
+
+    return (
+      <FlatList
+        data={pokemonsCache}
+        renderItem={renderPokemonItem}
+        keyExtractor={(pokemon) => String(pokemon?.id)}
+        numColumns={2}
+        contentContainerStyle={{ paddingBottom: spacings[20] }}
+        onEndReached={() => !isLoading && handleGetMorePokemons()}
+        onEndReachedThreshold={0.1}
+        ListFooterComponent={renderPokemonFooter}
+        removeClippedSubviews
+      />
+    )
+  }, [
+    renderPokemonFooter,
+    pokemonsCache,
+    isLoading,
+    handleGetMorePokemons,
+    renderPokemonItem,
+  ])
+
   return (
     <>
       <StatusBar style="auto" />
       <Styled.Container>
         <HomeHeader />
-
-        {pokemonsCache.length > 0 && (
-          <FlatList
-            data={pokemonsCache}
-            renderItem={renderPokemonItem}
-            keyExtractor={(pokemon) => String(pokemon?.id)}
-            numColumns={2}
-            contentContainerStyle={{ paddingBottom: spacings[20] }}
-            onEndReached={() => !isLoading && handleGetMorePokemons()}
-            onEndReachedThreshold={0.1}
-            ListFooterComponent={renderPokemonFooter}
-          />
-        )}
+        {FlatListPokemonElement}
       </Styled.Container>
     </>
   )

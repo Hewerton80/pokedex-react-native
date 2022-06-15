@@ -1,4 +1,4 @@
-import { Dimensions, StatusBar } from 'react-native'
+import { Animated, Dimensions, StatusBar } from 'react-native'
 import styled, { css } from 'styled-components/native'
 import { spacings } from '../../styles/mainStyles'
 
@@ -49,7 +49,7 @@ export const HeaderId = styled.Text`
 
 export const HeaderGoBackButton = styled.TouchableOpacity``
 
-export const PokebollIconWrapper = styled.View`
+export const PokebollIconWrapper = styled(Animated.View)`
   ${({ theme: { spacings } }) => css`
     position: absolute;
     width: ${spacings[52]}px;
